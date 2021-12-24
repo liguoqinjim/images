@@ -1,6 +1,8 @@
 name: automerge
 on:
-  workflow_run: {}
+  workflow_run:
+    workflows: ["Compress images"]
+    types: [completed]
 jobs:
   automerge:
     runs-on: ubuntu-latest
