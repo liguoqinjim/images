@@ -1,7 +1,7 @@
 name: automerge
 on:
   workflow_run:
-    workflows: ["Compress images"]
+    workflows: ["Compress images2"]
     types: [completed]
 jobs:
   automerge:
