@@ -13,15 +13,15 @@ on:
   #     - '**.jpeg'
   #     - '**.png'
   #     - '**.webp'
-  push:
-    branches:
-      - main
-    paths:
-      - '**.jpg'
-      - '**.jpeg'
-      - '**.png'
-      - '**.webp'
-  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - '**.jpg'
+  #     - '**.jpeg'
+  #     - '**.png'
+  #     - '**.webp'
+  # workflow_dispatch:
   schedule:
     - cron: '00 23 * * 0'
 jobs:
