@@ -55,7 +55,8 @@ jobs:
           branch-suffix: timestamp
           commit-message: Compress Images
           labels: automerge
-          body: ${{ steps.calibre.outputs.markdown }}
+          # body: ${{ steps.calibre.outputs.markdown }} 
+          body: "成功完成!!!"
       
       # - name: automerge
       #   uses: "pascalgn/automerge-action@v0.14.3"
