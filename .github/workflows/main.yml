@@ -21,7 +21,7 @@ on:
   #     - '**.jpeg'
   #     - '**.png'
   #     - '**.webp'
-  # workflow_dispatch:
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
   schedule:
     - cron: '00 23 * * 0'
 jobs:
