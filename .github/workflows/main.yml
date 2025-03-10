@@ -71,3 +71,25 @@ jobs:
       #     token: ${{ secrets.PAT }}
       #     pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
       #     merge-method: merge
+
+      - name: Check for root directory images
+        id: check_images
+        run: |
+          # 在根目录查找图片文件
+          IMAGE_FILES=$(find . -maxdepth 1 -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.webp" \))
+          if [ -n "$IMAGE_FILES" ]; then
+            echo "found_images=true" >> $GITHUB_OUTPUT
+          else
+            echo "found_images=false" >> $GITHUB_OUTPUT
+          fi
+          echo "Found image files: $IMAGE_FILES"
+          
+      - name: Send notification to WeChat
+        if: ${{ steps.check_images.outputs.found_images == 'true' }}
+        env:
+          WX_TOKEN: ${{ secrets.WX_TOKEN }}
+        run: |
+          json_payload=$(printf '{"msgtype": "text", "text": {"content": "请检查图库的上传配置，根目录存在图片文件。"}}')
+          curl --location "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=${WX_TOKEN}" \
+            --header 'Content-Type: application/json' \
+            --data "$json_payload"
