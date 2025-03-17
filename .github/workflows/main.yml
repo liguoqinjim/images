@@ -58,6 +58,37 @@ jobs:
           # body: ${{ steps.calibre.outputs.markdown }} 
           body: "成功完成!!!"
       
+      - name: Create Habitica Task
+        id: cht
+        if: |
+          github.event_name != 'pull_request' &&
+          steps.calibre.outputs.markdown != ''
+        env:
+          HABITICA_USER_ID: ${{ secrets.HABITICA_USER_ID }}
+          HABITICA_API_TOKEN: ${{ secrets.HABITICA_API_TOKEN }}
+        run: |
+          CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          JSON_DATA=$(cat << EOF
+          {
+            "text": "images库合并PR",
+            "type": "todo",
+            "priority": 1,
+            "checklist": [
+              {"text": "合并"},
+              {"text": "更新本地库"}
+            ],
+            "date": "${CURRENT_DATE}"
+          }
+          EOF
+          )
+          
+          curl -s -X POST "https://habitica.com/api/v3/tasks/user" \
+            -H "Content-Type: application/json" \
+            -H "x-client: ${HABITICA_USER_ID}-GitHubAction" \
+            -H "x-api-user: ${HABITICA_USER_ID}" \
+            -H "x-api-key: ${HABITICA_API_TOKEN}" \
+            -d "$JSON_DATA"
+
       # - name: automerge
       #   uses: "pascalgn/automerge-action@v0.14.3"
       #   env:
