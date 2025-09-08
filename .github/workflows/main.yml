@@ -24,6 +24,11 @@ on:
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
   schedule:
     - cron: '00 23 * * 0'
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build:
     name: calibreapp/image-actions
