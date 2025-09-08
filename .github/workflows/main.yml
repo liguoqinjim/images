@@ -41,13 +41,16 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2
+
       - name: Compress Images
         id: calibre
-        uses: calibreapp/image-actions@main
+        # uses: calibreapp/image-actions@main
+        uses: calibreapp/image-actions@1.3.0
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           # For non-Pull Requests, run in compressOnly mode and we'll PR after.
           compressOnly: ${{ github.event_name != 'pull_request' }}
+
       - name: Create Pull Request
         id: cpr
         # If it's not a Pull Request then commit any changes as a new PR.
