@@ -53,7 +53,7 @@ jobs:
           # githubToken: ${{ secrets.GITHUB_TOKEN }}
           # For non-Pull Requests, run in compressOnly mode and we'll PR after.
           compressOnly: ${{ github.event_name != 'pull_request' }}
-          minPctChange: 20 # 这个值默认是5，也就是
+          minPctChange: 20 # 这个值默认是5，如果压缩后比当前版本小至少 5%（默认），才提交新的文件。
 
       - name: Create Pull Request
         id: cpr
