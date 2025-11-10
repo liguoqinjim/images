@@ -53,6 +53,7 @@ jobs:
           # githubToken: ${{ secrets.GITHUB_TOKEN }}
           # For non-Pull Requests, run in compressOnly mode and we'll PR after.
           compressOnly: ${{ github.event_name != 'pull_request' }}
+          minPctChange: 20 # 这个值默认是5，也就是
 
       - name: Create Pull Request
         id: cpr
