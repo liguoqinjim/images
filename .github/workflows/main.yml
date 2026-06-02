@@ -54,6 +54,11 @@ jobs:
           # For non-Pull Requests, run in compressOnly mode and we'll PR after.
           compressOnly: ${{ github.event_name != 'pull_request' }}
           minPctChange: 20 # 这个值默认是5，如果压缩后比当前版本小至少 5%（默认），才提交新的文件。
+          # 20260602：
+          # 日志里面看到用的配置是："minAbsChange":1024,"minPctChange":20
+          # minPctChange：压缩后必须比原文件小 ≥20%
+          # minAbsChange：压缩后必须比原文件小 ≥1KB
+          # 不满足条件就不会被压缩
 
       - name: Create Pull Request
         id: cpr
